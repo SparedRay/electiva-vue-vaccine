@@ -6,14 +6,27 @@
   >
     <template v-slot:navigation>
       <ul class="nav-list">
-        <li class="nav-item">
+        <li class="nav-item" v-show="loading">
+          <loader/>
+        </li>
+        <li class="nav-item" v-show="!loading && !subscribed">
           <button
             type="button"
             class="pure-button"
             v-show="registered"
-            @click.prevent="askForPermission"
+            @click.prevent="subscribeToTopic"
           >
             Activar notificaciones
+          </button>
+        </li>
+        <li class="nav-item" v-show="!loading && subscribed">
+          <button
+            type="button"
+            class="pure-button"
+            v-show="registered"
+            @click.prevent="unsubscribeFromTopic"
+          >
+            Desactivar notificaciones
           </button>
         </li>
       </ul>
@@ -26,21 +39,30 @@
 import { defineComponent } from 'vue'
 import Bi from './components/Bi.vue'
 import Layout from './components/Layout.vue'
+import Loader from './components/Loader.vue'
 import { askForPermissioToReceiveNotifications } from './pushNotifications'
 
 export default defineComponent({
   name: 'App',
   components: {
     Bi,
-    Layout
+    Layout,
+    Loader
   },
   data: () => ({
-    registered: false
+    registered: false,
+    subscribed: false,
+    loading: false
   }),
   created () {
     this.swListeners()
+    this.checkSubscribed()
   },
   methods: {
+    checkSubscribed () {
+      const token = localStorage.getItem('push-token')
+      this.registered = !!token
+    },
     swListeners () {
       document.addEventListener('sw:registered', async () => {
         this.registered = true
@@ -52,14 +74,55 @@ export default defineComponent({
         token = await askForPermissioToReceiveNotifications()
       } catch (e) {
         console.log('Error while getting token', e)
+        return false
+      }
+      if (token.length === 0) {
+        return false
+      }
+
+      return token
+    },
+    async subscribeToTopic () {
+      this.loading = true
+      const token = await this.askForPermission()
+      if (!token) {
+        this.loading = false
         return
       }
-      if (token.length === 0) return
 
       const topic = 'all'
+      const subscribe = 'true'
+      const res = await this.subscription(topic, token, subscribe)
+      if (!!res) {
+        this.subscribed = true
+      }
+
+      this.loading = false
+      console.log('response', res)
+    },
+    async unsubscribeFromTopic () {
+      this.loading = true
+      const token = await this.askForPermission()
+      if (!token) {
+        this.loading = false
+        return
+      }
+
+      const topic = 'all'
+      const subscribe = 'false'
+      const res = await this.subscription(topic, token, subscribe)
+      if (!!res) {
+        localStorage.removeItem('push-token')
+        this.subscribed = false
+      }
+
+      this.loading = false
+      console.log('response', res)
+    },
+    async subscription(topic: string, token: string, subscribe: string) {
       let res = null
       try {
-        res = await fetch(`https://etl-chile.vercel.app/api/push?topic=${topic}&subscribe=true`, {
+        res = await fetch(`https://etl-chile.vercel.app/api/push?topic=${topic}&subscribe=${subscribe}`, {
           method: 'GET',
           headers: {
             Accept: 'application/json',
@@ -68,10 +131,11 @@ export default defineComponent({
         })
       } catch (error) {
         console.log(error)
-        return
+        return false
       }
 
-      console.log('response', res)
+      res = await res.json
+      return res
     }
   }
 })
