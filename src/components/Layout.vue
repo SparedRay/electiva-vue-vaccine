@@ -30,10 +30,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "Layout",
+  name: 'Layout',
   props: {
     title: {
       type: String,
@@ -48,6 +48,5 @@ export default defineComponent({
       required: false
     }
   }
-});
+})
 </script>
-

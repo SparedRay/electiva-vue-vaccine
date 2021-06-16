@@ -1,4 +1,4 @@
-const handleError = (error) => {
+const handleError = (error: any) => {
   if (error.response) {
     return {
       status: error.response.status,

@@ -1,15 +1,12 @@
 import axios from 'axios'
 import { JWT } from 'google-auth-library'
-const serviceAccount = require("../../etl-chile-firebase.json")
 
 const authToken = () => new Promise(function (resolve, reject) {
-  let jwtClient = new JWT(
-    serviceAccount.client_email,
-    null,
-    serviceAccount.private_key,
-    ['https://www.googleapis.com/auth/firebase.messaging'],
-    null
-  )
+  let jwtClient = new JWT({
+    email: process.env.FIREBASE_CLIENT_EMAIL,
+    key: process.env.FIREBASE_PRIVATE_KEY,
+    scopes: ['https://www.googleapis.com/auth/firebase.messaging']
+  })
   jwtClient.authorize(function (err, tokens) {
     if (err) {
       reject(err);
