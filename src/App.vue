@@ -134,7 +134,7 @@ export default defineComponent({
         return false
       }
 
-      res = await res.json
+      res = await res.json()
       return res
     }
   }

@@ -9,7 +9,7 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging()
 
-messaging.setBackgroundMessageHandler(payload => {
+messaging.onBackgroundMessage(payload => {
   console.log('Push message', payload)
   const notification = JSON.parse(payload.data.notification)
   const notificationTitle = notification.title
