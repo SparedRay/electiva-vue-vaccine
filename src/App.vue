@@ -93,7 +93,7 @@ export default defineComponent({
       const topic = 'all'
       const subscribe = 'true'
       const res = await this.subscription(topic, token, subscribe)
-      if (!!res) {
+      if (res) {
         this.subscribed = true
       }
 
@@ -111,7 +111,7 @@ export default defineComponent({
       const topic = 'all'
       const subscribe = 'false'
       const res = await this.subscription(topic, token, subscribe)
-      if (!!res) {
+      if (res) {
         localStorage.removeItem('push-token')
         this.subscribed = false
       }
@@ -119,7 +119,7 @@ export default defineComponent({
       this.loading = false
       console.log('response', res)
     },
-    async subscription(topic: string, token: string, subscribe: string) {
+    async subscription (topic: string, token: string, subscribe: string) {
       let res = null
       try {
         res = await fetch(`https://etl-chile.vercel.app/api/push?topic=${topic}&subscribe=${subscribe}`, {
