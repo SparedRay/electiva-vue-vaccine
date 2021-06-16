@@ -9,8 +9,8 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging()
 
-messaging.onBackgroundMessage(payload => {
-  console.log('Push message', payload)
+const showNotification = (payload) => {
+  console.log('Worker Push message', payload)
   const notification = JSON.parse(payload.data.notification)
   const notificationTitle = notification.title
   const notificationOptions = {
@@ -21,7 +21,10 @@ messaging.onBackgroundMessage(payload => {
     notificationTitle,
     notificationOptions
   )
-})
+}
+
+messaging.onMessage(showNotification)
+messaging.onBackgroundMessage(showNotification)
 
 if (workbox) {
   // adjust log level for displaying workbox logs
