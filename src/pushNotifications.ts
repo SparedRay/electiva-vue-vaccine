@@ -34,10 +34,6 @@ export const initializeFirebase = (registration: ServiceWorkerRegistration): voi
     console.log('Message received. ', payload)
     showNotification(payload)
   })
-  messaging.onBackgroundMessage(payload => {
-    console.log('Message received. ', payload)
-    showNotification(payload)
-  })
 
   swRegistration = registration
   console.log('Firebase app registered!')
