@@ -12,8 +12,8 @@ export default defineComponent({
 
 <style>
   .img-background {
-    width: 100vw;
-    height: 90vh;
+    width: 100%;
+    height: 85vh;
 
     background-image: url('/img/bi.jpg');
     background-size: contain;
