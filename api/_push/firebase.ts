@@ -14,7 +14,7 @@ const authToken = () => new Promise(function (resolve, reject) {
       reject(err);
       return;
     }
-    resolve(tokens.access_token);
+    resolve(tokens?.access_token);
   });
 });
 
