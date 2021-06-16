@@ -2,9 +2,11 @@ import axios from 'axios'
 import { JWT } from 'google-auth-library'
 
 const authToken = () => new Promise(function (resolve, reject) {
+  const client_email = process.env.FIREBASE_CLIENT_EMAIL ?? ""
+  const private_key = process.env.FIREBASE_PRIVATE_KEY ?? ""
   let jwtClient = new JWT({
-    email: process.env.FIREBASE_CLIENT_EMAIL,
-    key: process.env.FIREBASE_PRIVATE_KEY,
+    email: client_email,
+    key: private_key,
     scopes: ['https://www.googleapis.com/auth/firebase.messaging']
   })
   jwtClient.authorize(function (err, tokens) {
