@@ -1,10 +1,15 @@
 /* eslint-disable no-undef */
-importScripts('https://www.gstatic.com/firebasejs/7.2.1/firebase-app.js')
-importScripts('https://www.gstatic.com/firebasejs/7.2.1/firebase-messaging.js')
-importScripts('https://www.gstatic.com/firebasejs/7.2.1/firebase-analytics.js')
+importScripts('https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js')
+importScripts('https://www.gstatic.com/firebasejs/8.6.7/firebase-messaging.js')
+importScripts('https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js')
 
 firebase.initializeApp({
-  messagingSenderId: '975701806637'
+  apiKey: 'AIzaSyCihY_CMqJkImKDCRlVtLBen6vbUrrlS4I',
+  authDomain: 'etl-chile.firebaseapp.com',
+  projectId: 'etl-chile',
+  storageBucket: 'etl-chile.appspot.com',
+  messagingSenderId: '975701806637',
+  appId: '1:975701806637:web:5acfdf40051ae154c432a4'
 })
 
 const messaging = firebase.messaging()

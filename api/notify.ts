@@ -5,7 +5,7 @@ import { handleError, getQueryString } from './_utils/utils'
 
 export default async (request: VercelRequest, response: VercelResponse) => {
   let topic = getQueryString(request.query.topic)
-  let message = getQueryString(request.query.message)
+  let message = getQueryString(request.body?.message)
 
   let res = null
   try {
