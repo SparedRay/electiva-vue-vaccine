@@ -36,6 +36,9 @@ const getBody = (body: any): any => {
   let str = body
   if (body?.data) {
     str = str.data
+    if (Array.isArray(str)) {
+      str = str[0]
+    }
   }
   return str
 }
