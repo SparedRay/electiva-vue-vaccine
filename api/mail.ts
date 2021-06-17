@@ -1,5 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { transporter } from './_utils/mailer'
+import { getBody } from './_utils/utils'
 
 const sendEmail = async (name: string, email: string, message: string): Promise<any> => {
   const emailOptions = {
@@ -12,16 +13,16 @@ const sendEmail = async (name: string, email: string, message: string): Promise<
   return transporter.sendMail(emailOptions);
 }
 
-export default async (req: VercelRequest, res: VercelResponse) => {
-  if (req.method === 'POST') {
-    const body = req.body
+export default async (request: VercelRequest, response: VercelResponse) => {
+  if (request.method === 'POST') {
+    const body = getBody(request.body)
     const emailRes = await sendEmail(body.name, body.email, body.message)
     if (emailRes.messageId) {
-      return res.status(200).json({ message: `Email sent successfuly` })
+      return response.status(200).json({ message: `Email sent successfuly` })
     }
 
-    return res.status(400).json({ message: 'Error sending email' })
+    return response.status(400).json({ message: 'Error sending email' })
   }
 
-  return res.status(400).json({ message: `Incorrect method: ${req.method}. Did you mean POST?` })
+  return response.status(400).json({ message: `Incorrect method: ${request.method}. Did you mean POST?` })
 }

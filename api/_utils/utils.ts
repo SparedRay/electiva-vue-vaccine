@@ -32,4 +32,12 @@ const getQueryString = (query: string | string[]): string => {
   return str
 }
 
-export { handleError, getQueryString }
+const getBody = (body: any): any => {
+  let str = body
+  if (body?.data) {
+    str = str.data
+  }
+  return str
+}
+
+export { handleError, getQueryString, getBody }

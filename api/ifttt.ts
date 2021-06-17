@@ -1,10 +1,11 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
-import { handleError, getQueryString } from './_utils/utils'
+import { handleError, getQueryString, getBody } from './_utils/utils'
 import fetch from 'isomorphic-unfetch'
 
 export default async (request: VercelRequest, response: VercelResponse) => {
-  let topic = getQueryString(request.query.topic)
-  let message = getQueryString(request.body?.message)
+  const topic = getQueryString(request.query.topic)
+  const body = getBody(request.body)
+  const message = body?.message
 
   let res = null
   try {
