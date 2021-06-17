@@ -13,8 +13,7 @@ firebase.initializeApp({
 })
 
 const messaging = firebase.messaging()
-
-const showNotification = (payload) => {
+messaging.onBackgroundMessage(function (payload) {
   console.log('Firebase Push message', payload)
   const notification = JSON.parse(payload.data.notification)
   const notificationTitle = notification.title
@@ -26,7 +25,4 @@ const showNotification = (payload) => {
     notificationTitle,
     notificationOptions
   )
-}
-
-messaging.onMessage(showNotification)
-messaging.onBackgroundMessage(showNotification)
+})
