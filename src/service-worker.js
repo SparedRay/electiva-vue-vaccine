@@ -12,7 +12,6 @@ firebase.initializeApp({
 })
 
 const messaging = firebase.messaging()
-
 messaging.onBackgroundMessage(function (payload) {
   console.log('Worker Push message', payload)
   const notification = JSON.parse(payload.data.notification)
@@ -24,19 +23,6 @@ messaging.onBackgroundMessage(function (payload) {
   return self.registration.showNotification(
     notificationTitle,
     notificationOptions
-  )
-})
-
-self.addEventListener('push', function (event) {
-  console.log('SW Received a push message', event)
-
-  var title = 'Yay a message.'
-  var body = 'We have received a push message.'
-
-  event.waitUntil(
-    self.registration.showNotification(title, {
-      body: body
-    })
   )
 })
 
