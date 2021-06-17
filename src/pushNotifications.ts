@@ -12,7 +12,7 @@ export const showNotification = (payload: any): Notification => {
     body: notification.body
   }
 
-  return new Notification(notificationTitle,notificationOptions);
+  return new Notification(notificationTitle, notificationOptions)
 }
 
 export const initializeFirebase = (registration: ServiceWorkerRegistration): void => {
