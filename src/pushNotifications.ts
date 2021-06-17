@@ -4,9 +4,9 @@ import 'firebase/analytics'
 
 export let swRegistration: ServiceWorkerRegistration
 
-export const showNotification = (payload: {data: {notification: string}}): Notification => {
+export const showNotification = (payload: {notification: any}): Notification => {
   console.log('Push message', payload)
-  const notification = JSON.parse(payload.data.notification)
+  const notification = JSON.parse(payload.notification)
   const notificationTitle = notification.title
   const notificationOptions = {
     body: notification.body

@@ -14,7 +14,7 @@ firebase.initializeApp({
 const messaging = firebase.messaging()
 messaging.onBackgroundMessage(function (payload) {
   console.log('Worker Push message', payload)
-  const notification = JSON.parse(payload.data.notification)
+  const notification = JSON.parse(payload.notification)
   const notificationTitle = notification.title
   const notificationOptions = {
     body: notification.body
