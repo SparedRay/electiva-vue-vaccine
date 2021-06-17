@@ -11,12 +11,10 @@ export default async (request: VercelRequest, response: VercelResponse) => {
     res = await fetch(`https://maker.ifttt.com/trigger/data_updated/with/key/${topic}`, {
         method: 'POST',
         headers: {
-          Accept: 'application/json',
           'Content-type': 'application/json'
         },
         body: JSON.stringify({value1: message})
     })
-    res = await res.json()
   } catch (e) {
     console.log('Error while sending', e)
     let handle = handleError(e)
@@ -25,5 +23,5 @@ export default async (request: VercelRequest, response: VercelResponse) => {
 
   console.log('Topic: ', topic)
   console.log('Message: ', message)
-  return response.status(res.status).json({ data: res })
+  return response.status(res.status).json({ data: "Sended" })
 }
