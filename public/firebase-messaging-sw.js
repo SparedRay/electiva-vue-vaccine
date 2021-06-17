@@ -21,8 +21,5 @@ messaging.onBackgroundMessage(function (payload) {
     body: notification.body
   }
 
-  return self.registration.showNotification(
-    notificationTitle,
-    notificationOptions
-  )
+  return new Notification(notificationTitle, notificationOptions)
 })

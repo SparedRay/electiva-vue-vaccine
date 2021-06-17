@@ -61,7 +61,7 @@ export default defineComponent({
   methods: {
     checkSubscribed () {
       const token = localStorage.getItem('push-token')
-      this.registered = !!token
+      this.subscribed = !!token
     },
     swListeners () {
       document.addEventListener('sw:registered', async () => {
@@ -102,7 +102,7 @@ export default defineComponent({
     },
     async unsubscribeFromTopic () {
       this.loading = true
-      const token = await this.askForPermission()
+      const token = localStorage.getItem('push-token')
       if (!token) {
         this.loading = false
         return
