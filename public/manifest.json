@@ -1,9 +1,9 @@
 {
   "name": "Etl Chile",
   "short_name": "Etl Chile",
-  "theme_color": "#3d4f5d",
   "start_url": "/index.html",
   "display": "standalone",
+  "theme_color": "#3d4f5d",
   "background_color": "#3d4f5d",
   "gcm_sender_id": "975701806637"
 }

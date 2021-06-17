@@ -1,7 +1,6 @@
 /* eslint-disable no-undef */
 importScripts('https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js')
 importScripts('https://www.gstatic.com/firebasejs/8.6.7/firebase-messaging.js')
-importScripts('https://www.gstatic.com/firebasejs/8.6.7/firebase-analytics.js')
 
 firebase.initializeApp({
   apiKey: 'AIzaSyCihY_CMqJkImKDCRlVtLBen6vbUrrlS4I',
@@ -25,6 +24,19 @@ messaging.onBackgroundMessage(function (payload) {
   return self.registration.showNotification(
     notificationTitle,
     notificationOptions
+  )
+})
+
+self.addEventListener('push', function (event) {
+  console.log('SW Received a push message', event)
+
+  var title = 'Yay a message.'
+  var body = 'We have received a push message.'
+
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body: body
+    })
   )
 })
 
