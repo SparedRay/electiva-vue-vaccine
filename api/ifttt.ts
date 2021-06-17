@@ -1,5 +1,6 @@
 import { VercelRequest, VercelResponse } from '@vercel/node'
 import { handleError, getQueryString } from './_utils/utils'
+import fetch from 'isomorphic-unfetch'
 
 export default async (request: VercelRequest, response: VercelResponse) => {
   let topic = getQueryString(request.query.topic)

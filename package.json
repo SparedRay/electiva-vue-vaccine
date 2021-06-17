@@ -13,6 +13,7 @@
     "firebase": "^8.6.7",
     "firebase-admin": "^9.9.0",
     "google-auth-library": "^7.1.2",
+    "isomorphic-unfetch": "^3.1.0",
     "register-service-worker": "^1.7.1",
     "vue": "^3.0.0"
   },
